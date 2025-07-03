@@ -42,6 +42,8 @@
         recv = new NativeFunction(systemModule.getExportByName('recv'), 'ssize_t', ['int', 'pointer', 'size_t', 'int']);
 
         conn = systemModule.getExportByName('connect')
+
+        if (!conn) throw new Error("Could not find connect() in libc or libsystem_kernel");
     } catch (e) {
         console.error("Failed to set up native hooks:", e.message);
         console.warn('Could not initialize system functions to to hook raw traffic');
